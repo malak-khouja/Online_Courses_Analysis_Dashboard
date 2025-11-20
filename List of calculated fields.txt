@@ -1,0 +1,8 @@
+Average Rating per Skill:
+AVERAGE('online_courses_cleaned'[Rating]) 
+
+FreeCoursesPercent:
+DIVIDE(CALCULATE(COUNTROWS(FILTER('online_courses_cleaned',[Price]=0))), COUNTROWS('online_courses_cleaned'))
+
+Skill Count:
+COUNTROWS('online_courses_cleaned')
