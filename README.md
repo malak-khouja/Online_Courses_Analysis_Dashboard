@@ -134,6 +134,3 @@ Dataset source:\
 ## 📄 Author
 **Malak Khouja**\
 Online Learning Analytics Project -- 2025
-
-**Malak Khouja**\
-Online Learning Analytics Project -- 2025
