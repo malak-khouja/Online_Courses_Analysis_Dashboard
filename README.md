@@ -1,97 +1,136 @@
-"# Online Courses Analysis & Dashboard
+# 📘 Online Courses Analytics Dashboard
 
-## Project Overview
-This project provides comprehensive data analysis and preprocessing for online courses data. It includes data cleaning, transformation, and preparation steps to create a clean dataset ready for visualization and analysis.
+## 📝 Project Overview
 
-## Dataset
-The project uses the `Online_Courses.csv` dataset containing information about various online courses from different platforms.
+This project analyzes the *Kaggle Online Courses Dataset* to explore
+trends in online learning, course performance, pricing patterns, and
+instructor quality.\
+Using *Python* for data cleaning and *Power BI* for visualization,
+the project delivers a multi-page interactive dashboard with key
+insights.
 
-## Features
+Dataset source:\
+🔗 https://www.kaggle.com/datasets/khaledatef1/online-courses
 
-### Data Preprocessing
-The preprocessing pipeline includes:
-- **Missing Value Handling**: Intelligent imputation strategies for different column types
-- **Data Cleaning**: 
-  - Removal of columns with less than 30% valid data
-  - Handling of empty strings and spaces
-  - Type conversions and standardization
-- **Feature Engineering**:
-  - Duration conversion to standardized hours format
-  - Rating extraction and cleaning
-  - Viewer count normalization
-  - Category-based missing value imputation
+## 📂 Project Structure
 
-### Cleaned Dataset Columns
-- Title
-- Category
-- Rating
-- Price
-- Duration (in hours)
-- Skills
-- Number of viewers
-- Instructors
-- Language
-- Site
-- Course Type
-- Courses
+    📁 Online-Courses-Analytics/
+    │
+    ├── dataset/
+    │   └── Online_Courses_raw.csv
+    │
+    ├── online_courses_cleaned.csv
+    │
+    ├── preprocessing
+    │
+    ├──List of calculated fields
+    │
+    ├──Summary
+    │
+    ├── Dashboard_Power_BI.pbix
+    │
+    ├── images/
+    │   ├── Dashboard_Power_BI_cap1.png
+    │   ├── Dashboard_Power_BI_cap2.png
+    │   └── Dashboard_Power_BI_cap3.png
+    │
+    └── README.md
 
-## File Structure
-```
-├── dataset/
-│   └── Online_Courses.csv          # Raw dataset
-├── image/                           # Project images/visualizations
-├── preprocessing.ipynb              # Data cleaning and preprocessing notebook
-├── online_courses_cleaned.csv       # Cleaned dataset output
-├── List of calculated fields.txt    # Documentation of calculated fields
-└── README.md                        # Project documentation
-```
+## 🧹 Data Cleaning (Python)
 
-## Requirements
-- Python 3.x
-- pandas
-- numpy
-- re (regular expressions)
+### ✔ Missing values
 
-## Installation
-```bash
-pip install pandas numpy
-```
+-   Filled missing categories, languages, and skills with "Unknown"
+-   Removed rows missing essential fields such as Rating or Course Title
+-   Cleaned inconsistent null formats (empty strings, "--", spaces)
 
-## Usage
+### ✔ Numeric conversion
 
-1. **Run the preprocessing notebook**:
-   Open `preprocessing.ipynb` and run all cells to clean the data
+-   Converted Rating, Price, Duration, Number of Viewers into
+    numeric formats
+-   Standardized duration into *hours*
 
-2. **Output**:
-   The cleaned data will be saved to `online_courses_cleaned.csv`
+### ✔ Outliers processing
+-   Ensured ratings remain within 0--5 range
 
-## Data Cleaning Steps
+## 📊 Dashboard Content (Power BI)
 
-1. **Import Libraries**: pandas, numpy, re
-2. **Load Dataset**: Read the raw CSV file
-3. **Handle Missing Values**:
-   - Fill Price with 0 for free courses
-   - Replace missing Skills with "Unknown"
-   - Fill Rating with median value
-   - Category-based imputation for Duration
-4. **Data Transformation**:
-   - Convert duration to hours (from various formats)
-   - Extract and normalize viewer counts
-   - Clean rating values (remove "stars" text)
-5. **Column Management**:
-   - Drop irrelevant columns
-   - Reorder columns for better readability
-6. **Export**: Save cleaned data with proper encoding (UTF-8 with BOM)
+### 🔹 Page 1 -- Overview
 
-## Output Format
-The cleaned CSV file uses:
-- Separator: `;`
-- Encoding: `utf-8-sig`
-- Decimal: `,`
-- Float format: 1 decimal place
+-   KPIs:
+    -   Total Courses
+    -   Average Rating
+    -   Median Price
+    -   Average Duration
+    -   \% Free Courses
+-   Top 10 Categories (Number of Courses & Average Rating)
+-   Rating distribution by Category
 
-## Contributing
-Feel free to fork this project and submit pull requests for any improvements.
+### 🔹 Page 2 -- Course Relationships
 
-## License
-This project is open source and available for educational purposes." 
+-   Price vs Rating scatter plot
+-   Duration vs Rating scatter plot
+-   Courses by Rating & Category (stacked)
+-   Most common Skills + Average Rating per Skill
+
+### 🔹 Page 3 -- Instructors & Program Types
+
+-   Top 10 Instructors by Average Rating
+-   Number of Courses per Course Type (Course, Specialization,
+    Certificate, etc.)
+
+### 🔹 Filters
+
+-   Category\
+-   Language\
+-   Level\
+-   Platform\
+-   Price Range\
+-   Program Type
+
+## 🧮 Key DAX Measures
+
+    Total Courses = COUNTROWS(Courses)
+
+    Average Rating = AVERAGE(Courses[Rating])
+
+    Median Price = MEDIAN(Courses[Price])
+
+    Average Duration = AVERAGE(Courses[DurationHours])
+
+    FreeCoursesPercent =
+        DIVIDE(
+            CALCULATE(COUNTROWS(Courses), Courses[Price] = 0),
+            [Total Courses]
+        )
+
+    Skill Count = COUNTROWS(Skills)
+
+## 🔍 Key Insights
+
+1.  **Data-related fields dominate in both popularity and rating.**\
+    Categories like Data Science, Computer Science, and IT show
+    strong supply and high satisfaction.
+
+2.  *Majority of ratings lie between 4.4--4.8*, suggesting a positive
+    bias or consistently good course quality.
+
+3.  *Price median = 0*, meaning at least half of courses are free,
+    making online learning widely accessible.
+
+4.  *Skills such as Python, Machine Learning, Data Analysis* are the
+    most common and highest rated---indicating high market demand.
+
+5.  *Some instructors consistently outperform others*, showing strong
+    personal branding and teaching effectiveness.
+
+## 🚀 Tools Used
+
+-   *Python (Pandas, NumPy, Regex)*
+-   *Power BI Desktop*
+-   *DAX for calculated measures*
+-   *Excel/CSV preprocessing*
+
+## 📄 Author
+**Malak Khouja**\
+Online Learning Analytics Project -- 2025
